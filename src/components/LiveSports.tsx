@@ -195,14 +195,14 @@ export default function LiveSports() {
       </div>
 
       {/* Sport Category Tabs */}
-      <div className="flex gap-1.5 mb-6 overflow-x-auto pb-1 scrollbar-hide -mx-1 px-1">
+      <div className="flex gap-1.5 mb-6 overflow-x-auto pb-1 scrollbar-hide scroll-snap-x -mx-1 px-1">
         {sportCategories.map(({ id, label, icon: Icon }) => {
           const isActive = sport === id
           return (
             <button
               key={id}
               onClick={() => setSport(id)}
-              className={`flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-medium whitespace-nowrap transition-all duration-200 cursor-pointer ${
+              className={`flex items-center gap-2 px-3 sm:px-3.5 py-2 sm:py-2 rounded-xl text-xs font-medium whitespace-nowrap transition-all duration-200 cursor-pointer min-h-[40px] ${
                 isActive
                   ? isDark
                     ? "bg-accent text-white shadow-md shadow-accent/20"
@@ -271,7 +271,7 @@ export default function LiveSports() {
 
       {/* Main Content */}
       {!loading && !error && (
-        <div className="grid grid-cols-1 xl:grid-cols-3 gap-5 flex-1 min-h-0">
+        <div className="grid grid-cols-1 xl:grid-cols-3 gap-4 sm:gap-5 flex-1 min-h-0">
           {/* Match List */}
           <div className="xl:col-span-2 flex flex-col min-h-0">
             <div className="flex items-center justify-between mb-3">
@@ -322,7 +322,7 @@ export default function LiveSports() {
                   <button
                     key={match.id}
                     onClick={() => fetchDetail(match)}
-                    className={`w-full text-left rounded-2xl border p-4 transition-all duration-200 cursor-pointer group ${
+                    className={`w-full text-left rounded-2xl border p-3 sm:p-4 transition-all duration-200 cursor-pointer group ${
                       isActive
                         ? isDark
                           ? "border-accent/40 bg-accent/[0.08] shadow-lg shadow-accent/5"

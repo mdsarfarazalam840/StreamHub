@@ -77,19 +77,19 @@ export default function HomePage({ onNavigate }: HomePageProps) {
         </div>
 
         <div
-          className={`relative rounded-3xl p-8 lg:p-12 border backdrop-blur-sm ${
+          className={`relative rounded-3xl p-6 sm:p-8 lg:p-12 border backdrop-blur-sm ${
             isDark
               ? "bg-dark-300/30 border-white/5"
               : "bg-white/60 border-slate-200"
           }`}
         >
-          <div className="flex items-start gap-4 mb-6">
-            <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-accent to-sport-green flex items-center justify-center shrink-0 shadow-lg shadow-accent/25">
-              <Monitor className="w-8 h-8 text-white" />
+          <div className="flex items-start gap-3 sm:gap-4 mb-6">
+            <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-2xl bg-gradient-to-br from-accent to-sport-green flex items-center justify-center shrink-0 shadow-lg shadow-accent/25">
+              <Monitor className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
             </div>
             <div>
               <h1
-                className={`text-3xl lg:text-4xl font-extrabold mb-2 ${
+                className={`text-2xl sm:text-3xl lg:text-4xl font-extrabold mb-2 ${
                   isDark ? "text-white" : "text-slate-900"
                 }`}
               >
@@ -487,17 +487,17 @@ export default function HomePage({ onNavigate }: HomePageProps) {
               full catalog, or check out live sports schedules.
             </p>
           </div>
-          <div className="flex gap-2">
+          <div className="flex flex-col sm:flex-row gap-2">
             <button
               onClick={() => onNavigate("iptv")}
-              className="flex items-center gap-2 px-4 py-2.5 bg-accent hover:bg-accent-light text-white text-sm font-medium rounded-xl transition-all shadow-lg shadow-accent/25 active:scale-95"
+              className="flex items-center justify-center gap-2 px-4 py-2.5 bg-accent hover:bg-accent-light text-white text-sm font-medium rounded-xl transition-all shadow-lg shadow-accent/25 active:scale-95 min-h-[44px]"
             >
               <Play className="w-4 h-4" />
               Start Streaming
             </button>
             <button
               onClick={() => onNavigate("catalog")}
-              className={`flex items-center gap-2 px-4 py-2.5 text-sm font-medium rounded-xl transition-all ${
+              className={`flex items-center justify-center gap-2 px-4 py-2.5 text-sm font-medium rounded-xl transition-all min-h-[44px] ${
                 isDark
                   ? "bg-white/10 text-dark-100 hover:text-white hover:bg-white/15 border border-white/10"
                   : "bg-white text-slate-500 hover:text-slate-900 border border-slate-200"

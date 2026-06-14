@@ -184,6 +184,7 @@ export default function VideoPlayer({ src, title }: VideoPlayerProps) {
         onPlay={() => setPlaying(true)}
         onPause={() => setPlaying(false)}
         playsInline
+        webkit-playsinline="true"
       />
 
       {loading && (
@@ -210,33 +211,36 @@ export default function VideoPlayer({ src, title }: VideoPlayerProps) {
       )}
 
       <div
-        className={`absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent pt-16 pb-4 px-4 transition-opacity duration-300 ${
+        className={`absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent pt-16 pb-4 px-3 sm:px-4 transition-opacity duration-300 ${
           showControls ? "opacity-100" : "opacity-0 pointer-events-none"
         }`}
       >
-        <div className="h-1 bg-white/20 rounded-full cursor-pointer mb-4 group/progress" onClick={handleSeek}>
-          <div className="h-full bg-gradient-to-r from-accent to-accent-light rounded-full relative" style={{ width: `${progress}%` }}>
-            <div className="absolute right-0 top-1/2 -translate-y-1/2 w-3 h-3 bg-white rounded-full opacity-0 group-hover/progress:opacity-100 transition-opacity shadow-lg" />
+        {/* Seek bar — taller on mobile for easier tapping */}
+        <div className="h-1.5 sm:h-1 bg-white/20 rounded-full cursor-pointer mb-3 sm:mb-4 group/progress min-h-[12px] sm:min-h-0 flex items-center" onClick={handleSeek}>
+          <div className="h-full bg-gradient-to-r from-accent to-accent-light rounded-full relative w-full" style={{ width: `${progress}%` }}>
+            <div className="absolute right-0 top-1/2 -translate-y-1/2 w-3.5 h-3.5 sm:w-3 sm:h-3 bg-white rounded-full opacity-0 group-hover/progress:opacity-100 sm:group-hover/progress:opacity-100 transition-opacity shadow-lg" />
           </div>
         </div>
 
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <button onClick={togglePlay} className="w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors">
-              {playing ? <Pause className="w-4 h-4 text-white" /> : <Play className="w-4 h-4 text-white ml-0.5" />}
+          <div className="flex items-center gap-2 sm:gap-3">
+            {/* Play button — larger on mobile */}
+            <button onClick={togglePlay} className="w-10 h-10 sm:w-9 sm:h-9 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors">
+              {playing ? <Pause className="w-5 h-5 sm:w-4 sm:h-4 text-white" /> : <Play className="w-5 h-5 sm:w-4 sm:h-4 text-white ml-0.5" />}
             </button>
 
+            {/* Volume — slider hidden on mobile, mute toggle always visible */}
             <div className="flex items-center gap-2">
-              <button onClick={toggleMute} className="text-white/70 hover:text-white transition-colors">
+              <button onClick={toggleMute} className="text-white/70 hover:text-white transition-colors min-w-[36px] min-h-[36px] flex items-center justify-center">
                 {muted || volume === 0 ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4" />}
               </button>
-              <input type="range" min="0" max="1" step="0.05" value={muted ? 0 : volume} onChange={handleVolume} className="w-20 h-1 accent-accent cursor-pointer" />
+              <input type="range" min="0" max="1" step="0.05" value={muted ? 0 : volume} onChange={handleVolume} className="hidden sm:block w-20 h-1 accent-accent cursor-pointer" />
             </div>
 
-            <span className="text-xs text-white/60 font-mono">{formatTime(currentTime)} / {formatTime(duration)}</span>
+            <span className="text-[11px] sm:text-xs text-white/60 font-mono">{formatTime(currentTime)} / {formatTime(duration)}</span>
           </div>
 
-          <button onClick={toggleFullscreen} className="w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors">
+          <button onClick={toggleFullscreen} className="w-10 h-10 sm:w-9 sm:h-9 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors">
             {fullscreen ? <Minimize className="w-4 h-4 text-white" /> : <Maximize className="w-4 h-4 text-white" />}
           </button>
         </div>

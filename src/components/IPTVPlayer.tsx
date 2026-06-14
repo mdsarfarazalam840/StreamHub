@@ -104,7 +104,7 @@ export default function IPTVPlayer() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 xl:grid-cols-3 gap-6 flex-1 min-h-0">
+      <div className="grid grid-cols-1 xl:grid-cols-3 gap-4 sm:gap-6 flex-1 min-h-0">
         {/* Player Section */}
         <div className="xl:col-span-2 flex flex-col min-h-0">
           <div className="flex-1 rounded-2xl overflow-hidden bg-black border border-white/5">
@@ -115,30 +115,30 @@ export default function IPTVPlayer() {
           </div>
 
           {/* Now Playing Bar */}
-          <div className={`mt-4 p-4 rounded-2xl border backdrop-blur-sm transition-colors ${isDark ? "bg-dark-300/30 border-white/5" : "bg-white/80 border-slate-200"}`}>
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${isDark ? "bg-accent/20" : "bg-accent/10"}`}>
-                  <Radio className="w-5 h-5 text-accent-light" />
+          <div className={`mt-3 sm:mt-4 p-3 sm:p-4 rounded-2xl border backdrop-blur-sm transition-colors ${isDark ? "bg-dark-300/30 border-white/5" : "bg-white/80 border-slate-200"}`}>
+            <div className="flex items-center justify-between gap-3">
+              <div className="flex items-center gap-3 min-w-0">
+                <div className={`w-9 h-9 sm:w-10 sm:h-10 rounded-xl flex items-center justify-center shrink-0 ${isDark ? "bg-accent/20" : "bg-accent/10"}`}>
+                  <Radio className="w-4 h-4 sm:w-5 sm:h-5 text-accent-light" />
                 </div>
-                <div>
-                  <p className={`text-sm font-semibold ${isDark ? "text-white" : "text-slate-900"}`}>
+                <div className="min-w-0">
+                  <p className={`text-sm font-semibold truncate ${isDark ? "text-white" : "text-slate-900"}`}>
                     {activeChannel.name}
                   </p>
                   <div className="flex items-center gap-2 mt-0.5">
-                    <span className={`text-xs ${isDark ? "text-dark-100" : "text-slate-500"}`}>
+                    <span className={`text-xs hidden sm:inline ${isDark ? "text-dark-100" : "text-slate-500"}`}>
                       {activeChannel.category}
                     </span>
-                    <span className={`w-1 h-1 rounded-full ${isDark ? "bg-dark-100" : "bg-slate-400"}`} />
+                    <span className={`w-1 h-1 rounded-full hidden sm:block ${isDark ? "bg-dark-100" : "bg-slate-400"}`} />
                     <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded border ${getQualityColor(activeChannel.quality, isDark)}`}>
                       {activeChannel.quality}
                     </span>
                   </div>
                 </div>
               </div>
-              <div className="flex items-center gap-2 text-xs">
+              <div className="flex items-center gap-1.5 text-xs shrink-0">
                 <Signal className="w-3.5 h-3.5 text-sport-green" />
-                <span className="text-sport-green font-medium">Connected</span>
+                <span className="text-sport-green font-medium hidden sm:inline">Connected</span>
               </div>
             </div>
           </div>
@@ -197,7 +197,7 @@ export default function IPTVPlayer() {
                 <button
                   key={channel.id}
                   onClick={() => setActiveChannel(channel)}
-                  className={`w-full text-left p-3.5 rounded-2xl border transition-all duration-200 ${
+                  className={`w-full text-left p-3 sm:p-3.5 rounded-2xl border transition-all duration-200 ${
                     isActive
                       ? isDark
                         ? "border-accent/50 bg-accent/10 shadow-lg shadow-accent/10"

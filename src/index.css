@@ -13,11 +13,16 @@
 
   html {
     scroll-behavior: smooth;
+    -webkit-tap-highlight-color: transparent;
   }
 
   body {
     font-family: "Inter", system-ui, sans-serif;
     transition: background-color 0.3s, color 0.3s;
+    touch-action: manipulation;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overscroll-behavior: none;
   }
 
   /* Dark mode (default) */
@@ -92,4 +97,37 @@
   .gradient-text {
     @apply bg-gradient-to-r from-accent-light to-sport-green bg-clip-text text-transparent;
   }
+}
+
+/* Scrollbar hide utility */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Safe area insets for notched devices */
+.safe-area-bottom {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+.safe-area-top {
+  padding-top: env(safe-area-inset-top, 0px);
+}
+
+/* Mobile drawer backdrop */
+.drawer-backdrop {
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+/* Smooth scroll snap for horizontal tab bars */
+.scroll-snap-x {
+  scroll-snap-type: x mandatory;
+}
+.scroll-snap-x > * {
+  scroll-snap-align: start;
 }

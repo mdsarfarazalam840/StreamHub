@@ -220,7 +220,7 @@ export default function IPTVCatalog() {
 
       {/* Main Content */}
       {!loading && !error && (
-        <div className="flex flex-col xl:grid xl:grid-cols-[1fr_420px] gap-6 flex-1 min-h-0">
+        <div className="flex flex-col xl:grid xl:grid-cols-[1fr_420px] gap-4 sm:gap-6 flex-1 min-h-0">
           {/* Channel List */}
           <div className="flex flex-col min-h-0 order-2 xl:order-1">
             {/* Search Bar */}
@@ -233,7 +233,7 @@ export default function IPTVCatalog() {
                   placeholder="Search channels or categories..."
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
-                  className={`w-full pl-11 pr-10 py-3 rounded-2xl text-sm focus:outline-none focus:ring-2 focus:ring-accent/20 transition-all ${
+                  className={`w-full pl-11 pr-10 py-3 rounded-2xl text-sm focus:outline-none focus:ring-2 focus:ring-accent/20 transition-all min-h-[48px] ${
                     isDark
                       ? "bg-dark-300/50 border border-dark-400/50 text-white placeholder-dark-100 focus:border-accent/50"
                       : "bg-white border border-slate-200 text-slate-900 placeholder-slate-400 focus:border-accent/50"
@@ -415,7 +415,7 @@ export default function IPTVCatalog() {
               <div className="flex flex-wrap gap-1 max-h-44 overflow-y-auto pr-1">
                 <button
                   onClick={() => setSelectedCategory("All")}
-                  className={`px-2 py-1 text-[10px] font-medium rounded-md whitespace-nowrap transition-all duration-200 cursor-pointer ${
+                  className={`px-2 py-1.5 sm:py-1 text-[10px] font-medium rounded-md whitespace-nowrap transition-all duration-200 cursor-pointer min-h-[32px] ${
                     selectedCategory === "All"
                       ? "bg-accent text-white shadow-md shadow-accent/20"
                       : isDark
@@ -429,7 +429,7 @@ export default function IPTVCatalog() {
                   <button
                     key={cat}
                     onClick={() => setSelectedCategory(cat)}
-                    className={`inline-flex items-center gap-1 px-2 py-1 text-[10px] font-medium rounded-md whitespace-nowrap transition-all duration-200 cursor-pointer ${
+                    className={`inline-flex items-center gap-1 px-2 py-1.5 sm:py-1 text-[10px] font-medium rounded-md whitespace-nowrap transition-all duration-200 cursor-pointer min-h-[32px] ${
                       selectedCategory === cat
                         ? "bg-accent text-white shadow-md shadow-accent/20"
                         : isDark
