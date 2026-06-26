@@ -313,6 +313,85 @@ export function MusicProvider({ children }: { children: ReactNode }) {
     return () => clearInterval(interval)
   }, [state.currentTrack, state.isPlaying])
 
+  // Media Session API — enables background playback on mobile + lock screen controls
+  useEffect(() => {
+    if (!("mediaSession" in navigator)) return
+
+    const track = state.currentTrack
+    if (!track) {
+      navigator.mediaSession.metadata = null
+      return
+    }
+
+    navigator.mediaSession.metadata = new MediaMetadata({
+      title: track.title,
+      artist: track.artist,
+      artwork: track.thumbnail
+        ? [{ src: track.thumbnail, sizes: "512x512", type: "image/jpeg" }]
+        : [],
+    })
+
+    navigator.mediaSession.setActionHandler("play", () => {
+      if (track.source === "radio") audioToggle()
+      else if (track.source === "youtube" && youTubeControlsRef.current) youTubeControlsRef.current.play()
+      dispatch({ type: "PLAY" })
+    })
+
+    navigator.mediaSession.setActionHandler("pause", () => {
+      if (track.source === "radio") audioToggle()
+      else if (track.source === "youtube" && youTubeControlsRef.current) youTubeControlsRef.current.pause()
+      dispatch({ type: "PAUSE" })
+    })
+
+    navigator.mediaSession.setActionHandler("previoustrack", () => {
+      dispatch({ type: "PREV_TRACK" })
+    })
+
+    navigator.mediaSession.setActionHandler("nexttrack", () => {
+      dispatch({ type: "NEXT_TRACK" })
+    })
+
+    navigator.mediaSession.setActionHandler("seekbackward", (details) => {
+      const offset = details.seekOffset ?? 10
+      const time = track.source === "youtube" && youTubeControlsRef.current
+        ? youTubeControlsRef.current.getCurrentTime()
+        : state.progress
+      seek(Math.max(time - offset, 0))
+    })
+
+    navigator.mediaSession.setActionHandler("seekforward", (details) => {
+      const offset = details.seekOffset ?? 10
+      const time = track.source === "youtube" && youTubeControlsRef.current
+        ? youTubeControlsRef.current.getCurrentTime()
+        : state.progress
+      seek(Math.min(time + offset, state.duration))
+    })
+
+    navigator.mediaSession.setActionHandler("seekto", (details) => {
+      if (details.seekTime != null) {
+        seek(details.seekTime)
+      }
+    })
+
+    return () => {
+      if (!("mediaSession" in navigator)) return
+      navigator.mediaSession.setActionHandler("play", null)
+      navigator.mediaSession.setActionHandler("pause", null)
+      navigator.mediaSession.setActionHandler("previoustrack", null)
+      navigator.mediaSession.setActionHandler("nexttrack", null)
+      navigator.mediaSession.setActionHandler("seekbackward", null)
+      navigator.mediaSession.setActionHandler("seekforward", null)
+      navigator.mediaSession.setActionHandler("seekto", null)
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [state.currentTrack, state.progress, state.duration])
+
+  // Update Media Session playback state
+  useEffect(() => {
+    if (!("mediaSession" in navigator)) return
+    navigator.mediaSession.playbackState = state.isPlaying ? "playing" : "paused"
+  }, [state.isPlaying])
+
   // Sync audio state with context
   useEffect(() => {
     if (state.currentTrack && state.currentTrack !== prevTrackRef.current) {
