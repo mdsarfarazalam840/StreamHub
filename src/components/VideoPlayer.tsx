@@ -21,7 +21,7 @@ interface VideoPlayerProps {
 function toProxyUrl(url: string): string {
   if (typeof window === "undefined") return url
   if (window.location.protocol === "file:") return url
-  return `/api/iptv-proxy?url=${encodeURIComponent(url)}`
+  return `/.netlify/functions/iptv-proxy?url=${encodeURIComponent(url)}`
 }
 
 export default function VideoPlayer({ src, title, fillContainer = false }: VideoPlayerProps) {
